@@ -14,7 +14,9 @@ public class GameUI : MonoBehaviour
     Spawn Spawn;
     public Color to;
     public Text scprseUI;
-    public ScoreKeeper ScoreKeeper;
+    public GameObject stopUI;
+    private AudioSource clip;
+    public static bool stop = false;
     void OnNewWave(int waveNumber)
     {
        
@@ -60,7 +62,6 @@ public class GameUI : MonoBehaviour
         float percent = 0;
         int dir = 1;
         float endDelayTime = 1 / spped+Time.time + delayTime;  // 0+1/4 //1/4+0+1;
-        print(endDelayTime+"Ê±¼ä");
         while (percent>=0)
         {
             percent += Time.deltaTime * spped * dir;
@@ -78,7 +79,36 @@ public class GameUI : MonoBehaviour
     }
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            stop = true;
+            Time.timeScale = 0;
+            Cursor.visible = false;
+            stopUI.SetActive(true);
+            if (FindObjectsOfType<AudioSource>() != null)
+            {
+                AudioSource[] clips = FindObjectsOfType<AudioSource>();
+                for (int i = 0; i < clips.Length; i++)
+                {
+                    if (clips[i].clip!= null)
+                    {
+                        clip = clips[i];
+                    }
+                }
+                clip.mute = true;
+            } 
+          
+        }
+        else if  (Input.GetKeyDown(KeyCode.Space))
+        {
+            Cursor.visible = false;
+            stop = false;
+            Time.timeScale = 1;
+            stopUI.SetActive(false);
+            clip.mute = false;
+            
+        }
+
     }
     public void ReturnToMainMenu()
     {

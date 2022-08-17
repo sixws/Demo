@@ -56,7 +56,6 @@ public class ScoreKeeper : MonoBehaviour
     {
         fromScore = Score;  
         toScore = streakCount * 100+ fromScore;
-        print(Score);
         LeanTween.value(fromScore, toScore, animationTime).setEase(LeanTweenType.easeOutQuart).setOnUpdate((float obj)=>
         {
             fromScore = obj;

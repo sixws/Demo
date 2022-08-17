@@ -33,29 +33,32 @@ public class Player : LivingEntilty
         controller.Move(moveeVelocity);
         #endregion
         #region 玩家跟隨鼠標方向
-        plane = new Plane(Vector3.up, Vector3.zero * gunController.GunHeight);
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float rayDistance;
-        if(plane.Raycast(ray, out rayDistance))
+        if (!GameUI.stop)
         {
-            Vector3 point = ray.GetPoint(rayDistance);
-            controller.LookAt(point);
-            Debug.DrawLine(ray.origin, point, Color.red);
-            crosshairs.transform.position = point;
+            plane = new Plane(Vector3.up, Vector3.zero * gunController.GunHeight);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            float rayDistance;
+            if (plane.Raycast(ray, out rayDistance))
+            {
+                Vector3 point = ray.GetPoint(rayDistance);
+                controller.LookAt(point);
+                Debug.DrawLine(ray.origin, point, Color.red);
+                crosshairs.transform.position = point;
+            }
+            crosshairs.DetectTargets(ray);
+            #endregion
+            #region 开火
+            if (Input.GetMouseButton(0))
+            {
+                gunController.OnTriggerHold();
+            }
+            if (Input.GetMouseButtonUp(0))
+                gunController.OnTriggerReleas();
+            if (Input.GetKeyDown(KeyCode.R))
+                gunController.Reload();
+            #endregion
         }
-        crosshairs.DetectTargets(ray);
-        #endregion
-        #region 开火
-        if (Input.GetMouseButton(0))
-        {
-            gunController.OnTriggerHold();
-        }
-        if (Input.GetMouseButtonUp(0))
-            gunController.OnTriggerReleas();
-        if (Input.GetKeyDown(KeyCode.R))
-            gunController.Reload();
-        #endregion
-      
+
     }
     void OnNewWave(int waveNumber)
     {

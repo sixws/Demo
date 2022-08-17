@@ -19,12 +19,10 @@ public class AudioManager : MonoBehaviour
     {
         if (instance != null)
         {
-            print(111);
             Destroy(gameObject);
         }
         else
         {
-            print(222);
             instance = this;
             DontDestroyOnLoad(gameObject);
             soundLibrary = GetComponent<SoundLibrary>();//µ√µΩ“Ù–ßø‚

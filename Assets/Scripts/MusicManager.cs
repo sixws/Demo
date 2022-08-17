@@ -26,6 +26,10 @@ public class MusicManager : MonoBehaviour
             Invoke("PlayMusic", .2f);
         }
     }
+    public void StopMusic()
+    {
+
+    }
     void PlayMusic()
     {
         AudioClip clipToPlay = null;

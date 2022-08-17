@@ -70,7 +70,6 @@ public class MapGenerator : MonoBehaviour
                     float Height  =Mathf.Lerp(currentMap.minObstacleHeight,currentMap.maxObstacleHeight,(float)prng.NextDouble());
                      Transform newObs = Instantiate(obsPrefabs); //实例化障碍物
                     newObs.position = new Vector3((-currentMap.mapSize.x / 2f + randomCoord.x + 0.5f) * tileSize, Height/2, (-currentMap.mapSize.y / 2f + randomCoord.y + 0.5f) * tileSize);//设置障碍物位置
-                     print(newObs.position.y);
                     newObs.localScale *= outinePercent* tileSize;
                     newObs.localScale = new Vector3(newObs.localScale.x, Height, newObs.localScale.y);
                     newObs.parent = mapPoint;
